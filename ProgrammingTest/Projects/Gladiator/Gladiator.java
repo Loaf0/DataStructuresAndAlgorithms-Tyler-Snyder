@@ -19,6 +19,18 @@ public class Gladiator
 	private int xPos;
 	private int yPos;
 	
+	public Gladiator() 
+	{
+		rand = new Random();
+	}
+	
+	public Gladiator(int xPos, int yPos) 
+	{
+		rand = new Random();
+		this.yPos = yPos;
+		this.xPos = xPos;
+	}
+	
 	public Gladiator(String name, int totalHealth, int health, int strength, int dexterity, int speed, String weapon, int attackRange, int xPos, int yPos)
 	{
 		rand = new Random();
@@ -32,13 +44,6 @@ public class Gladiator
 		this.attackRange = attackRange;
 		this.xPos = xPos;
 		this.yPos = yPos;
-	}
-	
-	public Gladiator(int xPos, int yPos) 
-	{
-		rand = new Random();
-		this.yPos = yPos;
-		this.xPos = xPos;
 	}
 
 	public boolean damage(Gladiator gladiator, int damage) // attempt to deal damage
