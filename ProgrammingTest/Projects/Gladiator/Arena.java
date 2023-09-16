@@ -58,9 +58,33 @@ public class Arena
 			}
 			System.out.println(); //new line between loops
 		}
+		System.out.println(); // print new line after look is over
 	}
 
-	public boolean printInfo(int x, int y) 
+	public void printInfo() 
+	{
+		int height = gladiators.length;
+		int length = gladiators[0].length;
+		
+		for (int y = height-1; y >= 0; y--)
+		{
+			for (int x = 0; x < length; x++)
+			{
+				if(gladiators[x][y] instanceof Gladiator) 
+				{
+					System.out.println(gladiators[x][y].getFullName()
+							+ "\nWeapon : " + gladiators[x][y].getWeapon()
+							+ "\nHealth : " + gladiators[x][y].getHealth() + "/" + gladiators[x][y].getTotalHealth()
+							+ "\nStrenth : " + gladiators[x][y].getStrenth()
+							+ "\nDexterity : " + gladiators[x][y].getDexterity()
+							+ "\nSpeed : " + gladiators[x][y].getSpeed()
+							+ "\nAttack Range : " + gladiators[x][y].getAttackRange() + "\n");
+				}
+			}
+		}
+	}
+	
+	public boolean printInfo(int x, int y) //specific location
 	{
 //		if(player) // when adding player class
 //		{

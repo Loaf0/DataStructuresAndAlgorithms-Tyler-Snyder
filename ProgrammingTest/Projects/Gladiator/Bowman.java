@@ -10,14 +10,14 @@ public class Bowman extends Gladiator
 		setHealth(getTotalHealth());
 		setStrenth(4 + getRandomInt(9)); // [4, 12] damage
 		setDexterity(5 + getRandomInt(11)); // [5, 15] [15% - 45%]
-		setSpeed(2 + getRandomInt(3)); // [2, 4] how far you can move
+		setSpeed(1 + getRandomInt(2)); // [1, 2] how far you can move
 		setWeapon("Long Bow");
 		setAttackRange(3 + getRandomInt(3)); // [3, 5] distance you can attack
 	}
 
 	public void aiPlayTurn()
 	{
-
+		
 	}
 
 }

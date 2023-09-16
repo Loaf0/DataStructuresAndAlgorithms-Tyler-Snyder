@@ -6,24 +6,26 @@ public class Gladiator
 {
 	private Random rand;
 	private NameGenerator nameGen;
-
+	
 	private String name;
 	private int totalHealth; // max health
 	private int health; // current Gladiator health
 	private int strenth; // affects dmg
 	private int dexterity; // affects dodge max 20 dexterity dodge (3% per point max chance 60% dodge)
 	private int speed; // units distance per turn
-
-	private String weapon;
+	private int team; // player team 0 - AI team 1
+	
+	private String weapon; // weapon name
 	private int attackRange; // in meters
-
+	
 	private int xPos;
 	private int yPos;
-
+	
 	public Gladiator()
 	{
 		rand = new Random();
 		nameGen = new NameGenerator();
+		setTeam(1);
 	}
 
 	public Gladiator(int xPos, int yPos)
@@ -32,6 +34,7 @@ public class Gladiator
 		nameGen = new NameGenerator();
 		this.yPos = yPos;
 		this.xPos = xPos;
+		setTeam(1);
 	}
 
 	public Gladiator(String name, int totalHealth, int health, int strength, int dexterity, int speed, String weapon, int attackRange, int xPos, int yPos)
@@ -48,8 +51,9 @@ public class Gladiator
 		this.attackRange = attackRange;
 		this.xPos = xPos;
 		this.yPos = yPos;
+		setTeam(1);
 	}
-
+	
 	public boolean damage(Gladiator gladiator, int damage) // attempt to deal damage
 	{
 		if ((gladiator.getDexterity() * 3) > (getRandomInt(100) + 1)) // attack dodged
@@ -187,6 +191,18 @@ public class Gladiator
 	{
 		xPos = x;
 		yPos = y;
+	}
+	
+
+	public int getTeam()
+	{
+		return team;
+	}
+
+	
+	public void setTeam(int team)
+	{
+		this.team = team;
 	}
 
 }
