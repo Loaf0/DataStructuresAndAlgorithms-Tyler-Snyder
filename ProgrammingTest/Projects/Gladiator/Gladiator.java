@@ -1,11 +1,12 @@
 package Gladiator;
+
 import java.util.Random;
 
 public class Gladiator
 {
 	private Random rand;
 	private NameGenerator nameGen;
-	
+
 	private String name;
 	private int totalHealth; // max health
 	private int health; // current Gladiator health
@@ -18,22 +19,25 @@ public class Gladiator
 
 	private int xPos;
 	private int yPos;
-	
-	public Gladiator() 
+
+	public Gladiator()
 	{
 		rand = new Random();
+		nameGen = new NameGenerator();
 	}
-	
-	public Gladiator(int xPos, int yPos) 
+
+	public Gladiator(int xPos, int yPos)
 	{
 		rand = new Random();
+		nameGen = new NameGenerator();
 		this.yPos = yPos;
 		this.xPos = xPos;
 	}
-	
+
 	public Gladiator(String name, int totalHealth, int health, int strength, int dexterity, int speed, String weapon, int attackRange, int xPos, int yPos)
 	{
 		rand = new Random();
+		nameGen = new NameGenerator();
 		this.name = name;
 		this.totalHealth = totalHealth;
 		this.health = health;
@@ -51,7 +55,8 @@ public class Gladiator
 		if ((gladiator.getDexterity() * 3) > (getRandomInt(100) + 1)) // attack dodged
 		{
 			return false;
-		} else // attack hit
+		}
+		else // attack hit
 		{
 			gladiator.setHealth(gladiator.getHealth() - damage);
 			return true;
@@ -74,6 +79,11 @@ public class Gladiator
 	}
 
 	public String getName()
+	{
+		return name.substring(0, name.indexOf(' '));
+	}
+	
+	public String getFullName()
 	{
 		return name;
 	}
@@ -172,8 +182,8 @@ public class Gladiator
 	{
 		this.yPos = yPos;
 	}
-	
-	public void setCoords(int x, int y) 
+
+	public void setCoords(int x, int y)
 	{
 		xPos = x;
 		yPos = y;

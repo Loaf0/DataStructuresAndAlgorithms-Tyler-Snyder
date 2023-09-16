@@ -1,14 +1,26 @@
 package Gladiator;
-public class Tester 
+
+public class Tester
 {
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
-		//Gladiator glad = new Gladiator(null, 0, 0, 0, 0, 0, null, 0, 0, 0);
-		NameGenerator nameGen = new NameGenerator();
+		//NameGenerator nameGen = new NameGenerator();
+		Arena arena = new Arena("Gladiator Arena Test", 10, 10);
+		Bowman bow1 = new Bowman();
+		Bowman bow2 = new Bowman();
 		
-		for(int i = 0; i < 20; i++)
-		{
-			System.out.print(nameGen.fullNameGenerator() + "\n");
-		}
+		arena.addGladiator(bow1, 9, 5);
+		arena.addGladiator(bow2, 0, 5);
+		
+		arena.arenaPrinter();
+		System.out.println();
+		
+		arena.printInfo(9, 5);
+		System.out.println();
+		
+		arena.printInfo(0, 5);
+		System.out.println();
+		//System.out.print(nameGen.fullNameGenerator() + "\n");
+		
 	}
 }
