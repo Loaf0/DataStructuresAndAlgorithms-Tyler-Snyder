@@ -1,4 +1,4 @@
-package Gladiator;
+package gladiator;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package Gladiator;
+package gladiator;
 
 public class Arena
 {
@@ -19,7 +19,7 @@ public class Arena
 
 	public boolean addGladiator(Gladiator gladiator, int xPos, int yPos)
 	{
-		if (gladiators[xPos][yPos] instanceof Gladiator)
+		if (gladiators[yPos][xPos] instanceof Gladiator)
 		{
 			System.out.println("ERROR - There already exists a gladiator here");
 			return false;
@@ -27,7 +27,7 @@ public class Arena
 		else
 		{
 			gladiator.setCoords(xPos, yPos);
-			gladiators[xPos][yPos] = gladiator;
+			gladiators[yPos][xPos] = gladiator;
 
 			return true;
 		}
@@ -41,13 +41,13 @@ public class Arena
 
 		System.out.println(arenaName);
 
-		for (int y = height-1; y >= 0; y--)
+		for (int y = height-1; y > 0; y--)
 		{
 			for (int x = 0; x < length; x++)
 			{
-				if (gladiators[x][y] instanceof Gladiator)
+				if (gladiators[y][x] instanceof Gladiator)
 				{
-					output = gladiators[x][y].getName();
+					output = gladiators[y][x].getName();
 				}
 				else
 				{
@@ -70,15 +70,15 @@ public class Arena
 		{
 			for (int x = 0; x < length; x++)
 			{
-				if(gladiators[x][y] instanceof Gladiator) 
+				if(gladiators[y][x] instanceof Gladiator) 
 				{
-					System.out.println(gladiators[x][y].getFullName()
-							+ "\nWeapon : " + gladiators[x][y].getWeapon()
-							+ "\nHealth : " + gladiators[x][y].getHealth() + "/" + gladiators[x][y].getTotalHealth()
-							+ "\nStrenth : " + gladiators[x][y].getStrenth()
-							+ "\nDexterity : " + gladiators[x][y].getDexterity()
-							+ "\nSpeed : " + gladiators[x][y].getSpeed()
-							+ "\nAttack Range : " + gladiators[x][y].getAttackRange() + "\n");
+					System.out.println(gladiators[y][x].getFullName()
+							+ "\nWeapon : " + gladiators[y][x].getWeapon()
+							+ "\nHealth : " + gladiators[y][x].getHealth() + "/" + gladiators[y][x].getTotalHealth()
+							+ "\nStrength : " + gladiators[y][x].getStrength()
+							+ "\nDexterity : " + gladiators[y][x].getDexterity()
+							+ "\nSpeed : " + gladiators[y][x].getSpeed()
+							+ "\nAttack Range : " + gladiators[y][x].getAttackRange() + "\n");
 				}
 			}
 		}
@@ -95,15 +95,15 @@ public class Arena
 			System.out.println("Coordinates out of bounds");
 			return false;
 		}
-		else if(gladiators[x][y] instanceof Gladiator) 
+		else if(gladiators[y][x] instanceof Gladiator) 
 		{
-			System.out.println(gladiators[x][y].getFullName()
-					+ "\nWeapon : " + gladiators[x][y].getWeapon()
-					+ "\nHealth : " + gladiators[x][y].getHealth() + "/" + gladiators[x][y].getTotalHealth()
-					+ "\nStrenth : " + gladiators[x][y].getStrenth()
-					+ "\nDexterity : " + gladiators[x][y].getDexterity()
-					+ "\nSpeed : " + gladiators[x][y].getSpeed()
-					+ "\nAttack Range : " + gladiators[x][y].getAttackRange());
+			System.out.println(gladiators[y][x].getFullName()
+					+ "\nWeapon : " + gladiators[y][x].getWeapon()
+					+ "\nHealth : " + gladiators[y][x].getHealth() + "/" + gladiators[y][x].getTotalHealth()
+					+ "\nStrength : " + gladiators[y][x].getStrength()
+					+ "\nDexterity : " + gladiators[y][x].getDexterity()
+					+ "\nSpeed : " + gladiators[y][x].getSpeed()
+					+ "\nAttack Range : " + gladiators[y][x].getAttackRange());
 			return true;
 		}
 		else
@@ -112,6 +112,11 @@ public class Arena
 		}
 		
 		return true;
+	}
+	
+	public Gladiator[][] getArray()
+	{
+		return gladiators;
 	}
 
 	public String getArenaName()

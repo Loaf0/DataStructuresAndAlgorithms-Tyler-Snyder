@@ -1,4 +1,4 @@
-package Gladiator;
+package gladiator;
 
 import java.util.Random;
 
@@ -10,7 +10,7 @@ public class Gladiator
 	private String name;
 	private int totalHealth; // max health
 	private int health; // current Gladiator health
-	private int strenth; // affects dmg
+	private int strength; // affects dmg
 	private int dexterity; // affects dodge max 20 dexterity dodge (3% per point max chance 60% dodge)
 	private int speed; // units distance per turn
 	private int team; // player team 0 - AI team 1
@@ -44,7 +44,7 @@ public class Gladiator
 		this.name = name;
 		this.totalHealth = totalHealth;
 		this.health = health;
-		this.strenth = strength;
+		this.strength = strength;
 		this.dexterity = dexterity;
 		this.speed = speed;
 		this.weapon = weapon;
@@ -54,9 +54,60 @@ public class Gladiator
 		setTeam(1);
 	}
 	
+	public void aiPlayTurn(Gladiator[][] gladiator) 
+	{
+		Gladiator nearestTarget = null;
+		int tempDist = -1;
+		boolean nearestFound = false;
+		
+		for (int y = gladiator.length-1; y >= 0; y--)
+		{
+			for (int x = 0; x < gladiator[0].length; x++)
+			{
+				if(gladiator[y][x] instanceof Gladiator) 
+				{
+					tempDist = (int)distance(gladiator[y][x]);
+					System.out.println(tempDist);
+					if(tempDist > 0 && tempDist > distance(nearestTarget) && team != gladiator[y][x].getTeam())
+					{
+						nearestTarget = gladiator[y][x];
+						nearestFound = true;
+					}
+						
+				}
+			}
+		}
+		
+		if(nearestFound) 
+		{
+			System.out.println("the closest enemy " + getName() + " is " + nearestTarget.getName());
+			
+			if(distance(nearestTarget) < attackRange)
+			{
+				damage(nearestTarget, getStrength());
+				System.out.println("Attacking!");
+			}
+			else 
+			{
+				System.out.println("move closer please");
+			}
+		}
+		else 
+		{
+			System.out.println("ERROR : No enemy found");
+		}
+	}
+	
 	public boolean damage(Gladiator gladiator, int damage) // attempt to deal damage
 	{
-		if ((gladiator.getDexterity() * 3) > (getRandomInt(100) + 1)) // attack dodged
+		int rng = getRandomInt(100) + 1;
+		if(rng > 95)
+		{
+			System.out.println("Critical Hit!");
+			gladiator.setHealth(gladiator.getHealth() - damage);
+			return true;
+		}
+		else if ((gladiator.getDexterity() * 3) > (rng)) // attack dodged
 		{
 			return false;
 		}
@@ -75,6 +126,15 @@ public class Gladiator
 	public boolean isInDistance(Gladiator gladiator) // distance calculation < speed
 	{
 		return Math.sqrt(Math.pow(gladiator.getXPos() - getXPos(), 2) + Math.pow(gladiator.getYPos() - getYPos(), 2)) <= speed;
+	}
+	
+	public double distance(Gladiator gladiator) // distance calculation < speed
+	{
+		if(gladiator == null) 
+		{
+			return -1.0;
+		}
+		return Math.sqrt(Math.pow(gladiator.getXPos() - getXPos(), 2) + Math.pow(gladiator.getYPos() - getYPos(), 2));
 	}
 
 	public String nameGenerator()
@@ -117,14 +177,14 @@ public class Gladiator
 		this.health = health;
 	}
 
-	public int getStrenth()
+	public int getStrength()
 	{
-		return strenth;
+		return strength;
 	}
 
-	public void setStrenth(int strenth)
+	public void setStrength(int strength)
 	{
-		this.strenth = strenth;
+		this.strength = strength;
 	}
 
 	public int getDexterity()
