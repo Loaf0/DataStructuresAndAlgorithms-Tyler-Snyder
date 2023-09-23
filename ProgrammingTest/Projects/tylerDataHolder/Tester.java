@@ -13,15 +13,28 @@ public class Tester
 		test.addFriend("jesus");
 		test.addFriend("Jammy");
 		test.addFriend("Joel");
-		test.addFriend("Tyler");
-		test.removeFriend(2);
+		test.addFriend("Nimrod");
+		test.addFriend(2, "Jobe");
 		test.addFriend("Tammy");
 		test.addFriend("Taylor");
 		test.addFriend("Timmy");
 		test.addFriend("Joesph");
+		test.removeFriend(1);
+		test.removeFriend("Timmy");
+		
+		System.out.println("Array Empty? : " + test.isEmpty());
+		System.out.println("Does Joel Exist? : " + test.doesExist("Joel"));
+		
+		TylerDataHolder newFriendsList = test.deepClone();
 		
 		test.printArray();
 		
-		//System.out.println("TEST");
+		System.out.println("\nClearing Intial ArrayList (printing deep cloned array)");
+		test.clear();
+		test.printArray();
+		
+		newFriendsList.printArray();
+		
 	}
 }
+	

@@ -13,6 +13,18 @@ public class TylerDataHolder
 		pointer = 0;
 	}
 	
+	public TylerDataHolder(int arrayLength)
+	{
+		friends = new String[arrayLength];
+		size = friends.length;
+		pointer = 0;
+	}
+	
+	public String get(int index) 
+	{
+		return friends[index];
+	}
+	
 	public void addFriend(String friendName)
 	{
 		if(pointer < size)
@@ -33,8 +45,20 @@ public class TylerDataHolder
 			newFriends[pointer] = friendName;
 			
 			friends = newFriends;
-			
 		}
+	}
+	
+	public void addFriend(int position, String friendName) 
+	{
+		if(pointer < size) 
+		{
+			for(int i = friends.length; i < position; i--) 
+			{
+				friends[i] = friends[i+1];
+			}
+			friends[position] = friendName;
+		}
+		
 	}
 	
 	public void removeFriend(int position)
@@ -50,14 +74,39 @@ public class TylerDataHolder
 		pointer--;
 	}
 	
-	public int getSize() 
+	public boolean removeFriend(String target)
+	{	
+		for(int i = 0; i < friends.length; i++)
+		{
+			if(friends[i] == target) 
+			{
+				for(int x = i; x < friends.length; x++)
+				{
+					if(x+1 < friends.length) 
+					{
+						friends[x] = friends[x+1];
+					}
+				}
+				pointer--;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int getSize() //not array size but the amount of elements in arraylist
 	{
-		return size;
+		return pointer;
+	}
+	
+	public int getLength()
+	{
+		return friends.length;
 	}
 	
 	public void printArray()
 	{
-		for(int i = 0; i < friends.length; i++) 
+		for(int i = 0; i < size; i++) 
 		{
 			if(friends[i] != null)
 			{
@@ -66,4 +115,45 @@ public class TylerDataHolder
 		}
 	}
 	
+	public void clear() 
+	{
+		for(int i = 0; i < friends.length; i++) 
+		{
+			friends[i] = null;
+		}
+	}
+	
+	public TylerDataHolder deepClone() 
+	{
+		TylerDataHolder cloneArray = new TylerDataHolder(friends.length);
+		for(int i = 0; i < friends.length; i++) 
+		{
+			cloneArray.addFriend(friends[i]);
+		}
+		return cloneArray;
+	}
+	
+	public boolean isEmpty() 
+	{
+		for(int i = 0; i < friends.length; i++) 
+		{
+			if(friends[i] == null)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean doesExist(String target) 
+	{
+		for(int i = 0; i < friends.length; i++) 
+		{
+			if(friends[i] == target)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
