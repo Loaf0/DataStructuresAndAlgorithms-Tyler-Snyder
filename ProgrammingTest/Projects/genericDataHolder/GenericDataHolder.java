@@ -2,23 +2,23 @@ package genericDataHolder;
 
 public class GenericDataHolder<E>
 {
-	private Object[] arr;
+	private E[] arr;
 	private int size;
 	private int pointer;
 
 	public GenericDataHolder()
 	{
-		arr = new Object[10];
+		arr = (E[]) new Object[10];
 		size = arr.length;
 		pointer = 0;
 	}
 
-	public Object get(int index)
+	public E get(int index)
 	{
 		return arr[index];
 	}
 
-	public void addObject(Object friendName)
+	public void addObject(E friendName)
 	{
 		if (pointer < size)
 		{
@@ -28,7 +28,7 @@ public class GenericDataHolder<E>
 		else
 		{
 			size += size;
-			Object[] newArr = new Object[size];
+			E[] newArr = (E[]) new Object[size];
 
 			for (int i = 0; i < arr.length; i++)
 			{
@@ -41,7 +41,7 @@ public class GenericDataHolder<E>
 		}
 	}
 
-	public void addObject(int position, Object friendName)
+	public void addObject(int position, E friendName)
 	{
 		if (pointer < size)
 		{
@@ -67,7 +67,7 @@ public class GenericDataHolder<E>
 		pointer--;
 	}
 
-	public boolean removeObject(Object target)
+	public boolean removeObject(E target)
 	{
 		for (int i = 0; i < arr.length; i++)
 		{
@@ -138,7 +138,7 @@ public class GenericDataHolder<E>
 		return true;
 	}
 
-	public boolean doesExist(Object target)
+	public boolean doesExist(E target)
 	{
 		for (int i = 0; i < arr.length; i++)
 		{

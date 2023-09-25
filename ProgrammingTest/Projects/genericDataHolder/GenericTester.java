@@ -9,7 +9,7 @@ public class GenericTester
 			stringArrList.addObject("String1");
 			stringArrList.addObject("String2");
 			stringArrList.addObject("String3");
-			stringArrList.addObject("String4");
+			//stringArrList.addObject(2);
 			stringArrList.printArray();
 			
 			GenericDataHolder<Integer> intArrList = new GenericDataHolder<>();
