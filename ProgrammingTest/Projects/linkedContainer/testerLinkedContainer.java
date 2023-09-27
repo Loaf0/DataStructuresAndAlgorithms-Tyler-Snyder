@@ -5,13 +5,32 @@ public class testerLinkedContainer
 	
 	public static void main(String[] args) 
 	{
+		
+		
 		LinkedContainer lc = new LinkedContainer();
 		
-		lc.add(1, "First");
-		lc.add(2, "Second");
-		lc.add(3, "Third");
-		lc.add(5, "Fifth");
+		lc.add("First");
+		lc.add("Second");
+		lc.add("Third");
+		lc.add("Fourth");
+		lc.add("Fifth");
+		lc.printAll();
+		
+		lc.removeLast();
+		lc.printAll();
+		/*System.out.println("There are " + lc.getSize() + " boxes");
+		
+		System.out.println("Swapping First box");
+		//lc.removeFirst();
+		lc.remove("First");
+		lc.addFirst("New First");
 		
 		lc.printAll();
+		
+		System.out.println("Testing get at position");
+		System.out.println(lc.getData(1));
+		
+		lc.clear();
+		lc.printAll();*/
 	}
 }
