@@ -59,7 +59,10 @@ public class Time
 	{
 		return seconds;
 	}
-
+	
+	/**
+	 * increments the seconds by 1 or increment minutes if needed
+	 */
 	public void incrementSeconds()
 	{
 		fixMinutes();
@@ -78,12 +81,18 @@ public class Time
 		}
 	}
 
+	/**
+	 * return hash of object
+	 */
 	@Override
 	public int hashCode()
 	{
 		return Objects.hash(hours, minutes, seconds);
 	}
 
+	/**
+	 * increments the minutes by 1 or increment hours if needed
+	 */
 	public void incrementMinutes()
 	{
 		fixHours();
@@ -102,6 +111,9 @@ public class Time
 		}
 	}
 
+	/**
+	 * increments the hours by 1 or increment resets to zero if needed
+	 */
 	public void incrementHours()
 	{
 		if (hours == 23)
@@ -114,6 +126,9 @@ public class Time
 		}
 	}
 
+	/**
+	 * checks if the time is equal in two clocks
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -127,6 +142,9 @@ public class Time
 		return hours == other.hours && minutes == other.minutes && seconds == other.seconds;
 	}
 
+	/**
+	 * prints the hours in HH:MM:SS format
+	 */
 	@Override
 	public String toString()
 	{
