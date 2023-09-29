@@ -1,11 +1,11 @@
-package linkedContainer;
+package twoWayLinkedContainer;
 
-public class LinkedContainer // holds two values that contain data and contain next 
+public class TwoWayLinkedContainer // holds two values that
 {
 	private Box head;
 	private int size;
 
-	public LinkedContainer()
+	public TwoWayLinkedContainer()
 	{
 		head = new Box(null);
 	}

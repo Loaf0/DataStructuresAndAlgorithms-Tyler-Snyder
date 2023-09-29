@@ -6,6 +6,7 @@ public class GenericDataHolder<E>
 	private int size;
 	private int pointer;
 
+	@SuppressWarnings("unchecked")
 	public GenericDataHolder()
 	{
 		arr = (E[]) new Object[10];
@@ -28,6 +29,7 @@ public class GenericDataHolder<E>
 		else
 		{
 			size += size;
+			@SuppressWarnings("unchecked")
 			E[] newArr = (E[]) new Object[size];
 
 			for (int i = 0; i < arr.length; i++)

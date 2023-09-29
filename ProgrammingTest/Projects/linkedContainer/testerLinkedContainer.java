@@ -16,7 +16,9 @@ public class testerLinkedContainer
 		lc.add("Fifth");
 		lc.printAll();
 		
-		lc.removeLast();
+		
+		System.out.println("removing 2");
+		lc.remove(2);
 		lc.printAll();
 		/*System.out.println("There are " + lc.getSize() + " boxes");
 		
