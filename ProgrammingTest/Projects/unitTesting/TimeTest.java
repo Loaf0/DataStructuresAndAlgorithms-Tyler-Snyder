@@ -143,6 +143,7 @@ public class TimeTest
 		assertFalse("Different seconds", time2.equals(time1));
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testEquals6()
 	{

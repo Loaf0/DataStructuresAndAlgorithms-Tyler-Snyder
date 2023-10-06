@@ -4,7 +4,10 @@ import java.util.GregorianCalendar;
 import java.util.Objects;
 
 /**
- * @author Tyler Snyder Mesures time
+ * @author Tyler Snyder 
+ * @date 9/29/2023
+ * Mesures time
+ * 
  */
 
 public class Time
