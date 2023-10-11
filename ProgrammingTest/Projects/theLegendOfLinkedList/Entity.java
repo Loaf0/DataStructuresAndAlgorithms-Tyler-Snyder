@@ -1,10 +1,13 @@
 package theLegendOfLinkedList;
 
+import java.util.Random;
+
 /*
  * Entity class use as base for rest of living (or undead) creatures
  */
-public class Entity
+public class Entity extends Event
 {
+	private Random rand;
 	private String name;
 	private int maxLife;
 	private int life;
@@ -14,8 +17,24 @@ public class Entity
 	private int money;
 	private int level;
 	private int xp;
+	private int xpRequirement;
 
-	public Entity(String name, int newMaxLife, int newAttack, int newDefense, int newSpeed, int newMoney) //MaxLife, Attack, Defense, Speed, Money
+	public Entity()
+	{
+		name = "";
+		maxLife = 1;
+		life = 1;
+		attack = 1;
+		defense = 1;
+		speed = 1;
+		money = 0;
+		level = 0;
+		xp = 0;
+		xpRequirement = 100;
+		rand = new Random();
+	}
+	
+	public Entity(String name, int newMaxLife, int newAttack, int newDefense, int newSpeed, int newMoney) // MaxLife, Attack, Defense, Speed, Money
 	{
 		name = "";
 		maxLife = newMaxLife;
@@ -26,25 +45,75 @@ public class Entity
 		money = newMoney;
 		level = 0;
 		xp = 0;
+		xpRequirement = 100;
+		rand = new Random();
+	}
+	
+	public void battle(Hero player, Monster monster) 
+	{
+		while(player.getLife() > 0 && monster.getLife() > 0)
+		{
+			if(player.compareSpeed(monster))
+			{
+				if(!attack(player, monster)) //continues if not dead attack returns true if dead
+				{
+					attack(monster, player);
+				}
+			}
+			else 
+			{
+				if(!attack(monster, player)) 
+				{
+					attack(player, monster);
+				}
+			}
+		}
+		if(player.getLife() > 0) 
+		{
+			System.out.println("You have defeated " + monster.getName() + " and gained " + monster.getXp() + " xp and found " + monster.getMoney() + " Gold");
+			player.gainXp(monster.getXp());
+			player.setMoney(player.getMoney() + monster.getMoney());
+		}
+		else 
+		{
+			System.out.println("you died");
+		}
 	}
 	
 	/**
-	 * refresh and add stats with level up
-	 */
-	public void level()
-	{
-		life = maxLife;
-	}
-
-	/**
+	 * @param entity - the attacker
 	 * @param entity - the target for the attack
 	 * @return boolean - true if entity dies false if otherwise
 	 */
-	public boolean attack(Entity entity)
+	public boolean attack(Entity attacker, Entity defender)
 	{
-		entity.setLife((int) entity.getLife() - (attack * entity.getDefense() / 10));
-
-		if (entity.getLife() < 0)
+		int randInt = rand.nextInt(10);
+		int dmg = 0;
+		
+		if(randInt >= 5) // 10% crit chance to ingore armor stops stalemate
+		{
+			 dmg = (attacker.getAttack() - (defender.getDefense()));
+		}
+		else if(randInt == 0)//crit
+		{
+			dmg = attacker.getAttack()*2;
+		}
+		else // armor avoid
+		{
+			dmg = attacker.getAttack();
+		}
+		
+		if(dmg > 0)// so you can't accidentally heal enemies
+		{
+			defender.setLife(defender.getLife() - dmg);
+			System.out.println(attacker.getName() + "'s attack dealt " + dmg + " damage!");
+		}
+		else
+		{
+			System.out.println(attacker.getName() + "'s attack was blocked!");
+		}
+		
+		if (defender.getLife() < 0)
 		{
 			return true;
 		}
@@ -68,6 +137,52 @@ public class Entity
 		{
 			return false;
 		}
+	}
+
+	
+	/**
+	 * execute on level up
+	 * @param entity - the target for the attack
+	 */
+	public void levelUp()
+	{
+		System.out.println(name + " has leveled up!");
+		maxLife++;
+		attack++;
+		defense++;
+		speed++;
+		level++;
+		life = maxLife;
+		xpRequirement += 25;
+	}
+
+	/**
+	 * the calculations for gaining xp
+	 */
+	public void gainXp(int addedXp)
+	{
+		xp += addedXp;
+		while (xp >= xpRequirement) // in case of double level up
+		{
+			xp -= xpRequirement;
+			levelUp();
+		}
+	}
+	
+	/**
+	 * Print player stats
+	 */
+	public void printStats() 		// MaxLife, Attack, Defense, Speed, Money
+	{
+		System.out.println(
+				"Name : " + name +
+				"\nHealth : " + life + "/" + maxLife +
+				"\nAttack : " + attack +
+				"\nDefense : " + defense +
+				"\nSpeed : " + speed +
+				"\nXP : " + xp +
+				"\nLevel : " + level +
+				"\nGold : " + money);
 	}
 
 	/**
@@ -197,7 +312,7 @@ public class Entity
 	{
 		this.xp = xp;
 	}
-	
+
 	/**
 	 * @return the Name
 	 */
