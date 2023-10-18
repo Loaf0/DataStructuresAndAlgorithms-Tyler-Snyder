@@ -75,7 +75,7 @@ public class StatChanges extends Event
 			defense = 3;
 			itemName = "Hylian Shield";
 			roomName = "Item";
-			itemDescription = "You feel fortified!";
+			itemDescription = "You feel fortified!"; 
 		}
 		else if (itemID == 7) // Hermes Boots
 		{
@@ -150,7 +150,7 @@ public class StatChanges extends Event
 			roomName = "Trap";
 			itemDescription = "You feel the floor gives out below you!";
 		}
-		else if (itemID == 14) // Slime
+		else // Slime
 		{
 			attack = -2;
 			itemName = "Slime trap";

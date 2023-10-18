@@ -7,7 +7,7 @@ public class Hero extends Entity
 		super("Player", maxLife, attack, defense, speed, money);
 	}
 	
-	public void createHero(String name, int background) 
+	public void createHero(String name, int background) //class gen
 	{
 		if(background == 0) // impoverished
 		{
@@ -61,19 +61,20 @@ public class Hero extends Entity
 		}
 	} 
 	
-	public void find(Hero player, StatChanges event)
+	public void find(Hero player, StatChanges event) // items and traps
 	{
 		System.out.println("You Found a " + event.getItemName());
 		if(getMaxLife() + event.getMaxLife() > 0) 
 		{
 			setMaxLife(getMaxLife() + event.getMaxLife());
+			setLife(getMaxLife()); // heal when max health changes
 		}
 		else //cant die from items or traps
 		{
 			setMaxLife(1);
 		}
 		
-		if(getMaxLife() < getLife()) 
+		if(getMaxLife() < getLife()) //incase you lose max health
 		{
 			setLife(getMaxLife());
 		}
@@ -84,5 +85,32 @@ public class Hero extends Entity
 		setMoney(getMoney() + event.getMoney());
 		
 		System.out.println(event.getItemDescription());
+	}
+	
+	public void battle(Hero player, Monster monster) //battle sequence
+	{
+		while(player.getLife() > 0 && monster.getLife() > 0)
+		{
+			if(player.compareSpeed(monster))
+			{
+				if(!attack(player, monster)) //continues if not dead attack returns true if dead
+				{
+					attack(monster, player);
+				}
+			}
+			else 
+			{
+				if(!attack(monster, player)) 
+				{
+					attack(player, monster);
+				}
+			}
+		}
+		if(player.getLife() > 0) 
+		{
+			System.out.println("You have defeated " + monster.getName() + " and gained " + monster.getXp() + " xp and found " + monster.getMoney() + " Gold");
+			player.gainXp(monster.getXp());
+			player.setMoney(player.getMoney() + monster.getMoney());
+		}
 	}
 }

@@ -49,37 +49,6 @@ public class Entity extends Event
 		rand = new Random();
 	}
 	
-	public void battle(Hero player, Monster monster) 
-	{
-		while(player.getLife() > 0 && monster.getLife() > 0)
-		{
-			if(player.compareSpeed(monster))
-			{
-				if(!attack(player, monster)) //continues if not dead attack returns true if dead
-				{
-					attack(monster, player);
-				}
-			}
-			else 
-			{
-				if(!attack(monster, player)) 
-				{
-					attack(player, monster);
-				}
-			}
-		}
-		if(player.getLife() > 0) 
-		{
-			System.out.println("You have defeated " + monster.getName() + " and gained " + monster.getXp() + " xp and found " + monster.getMoney() + " Gold");
-			player.gainXp(monster.getXp());
-			player.setMoney(player.getMoney() + monster.getMoney());
-		}
-		else 
-		{
-			System.out.println("you died");
-		}
-	}
-	
 	/**
 	 * @param entity - the attacker
 	 * @param entity - the target for the attack

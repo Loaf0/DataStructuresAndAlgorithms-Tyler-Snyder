@@ -61,6 +61,6 @@ public class MonsterNameGen
 
 	public String bossNameGenerator()
 	{
-		return nameGenerator() + " The " + attributeGenerator();
+		return enemyTypeGenerator() + " The " + attributeGenerator();
 	}
 }

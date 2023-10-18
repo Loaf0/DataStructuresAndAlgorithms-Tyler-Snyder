@@ -3,21 +3,31 @@ package theLegendOfLinkedList;
 public class Room
 {
 	private Event event;
-	private Boolean cleared;
+	private Boolean isExit;
 	private Room nextRoom;
 	private Room prevRoom;
 	private String roomName;
 
 	public Room(Event newEvent)
 	{
+		isExit = false;
 		event = newEvent;
 		nextRoom = null;
 		prevRoom = null;
 		roomName = newEvent.getName();
 	}
 
+	public Room(Event newEvent, Room newNextRoom)
+	{
+		isExit = false;
+		event = newEvent;
+		nextRoom = newNextRoom;
+		roomName = newEvent.getName();
+	}
+	
 	public Room(Event newEvent, Room newNextRoom, Room newPrevRoom)
 	{
+		isExit = false;
 		event = newEvent;
 		nextRoom = newNextRoom;
 		prevRoom = newPrevRoom;
@@ -45,14 +55,9 @@ public class Room
 		roomName = newRoomName;
 	}
 
-	public void setCleared(Boolean newCleared)
+	public void isExit()
 	{
-		cleared = newCleared;
-	}
-
-	public void clear()
-	{
-		cleared = true;
+		isExit = true;
 	}
 
 	public Event getEvent()
@@ -75,8 +80,8 @@ public class Room
 		return roomName;
 	}
 
-	public Boolean getCleared()
+	public Boolean getIsExit()
 	{
-		return cleared;
+		return isExit;
 	}
 }

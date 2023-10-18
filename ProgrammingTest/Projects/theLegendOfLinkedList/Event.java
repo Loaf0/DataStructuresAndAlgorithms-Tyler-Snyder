@@ -12,11 +12,10 @@ class Event implements Interactable
 		{
 			player.find(player, (StatChanges) event);
 		}
-//		else if (event instanceof Shop)
+//		else if (event instanceof Rest) //rest area
 //		{
 //			
 //		}
-//		
 	}
 
 	public String getName()
