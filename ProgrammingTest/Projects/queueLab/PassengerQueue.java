@@ -3,10 +3,9 @@ package queueLab;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/** Class to simulate a queue of passengers. */
 public class PassengerQueue
 {
-// Data Fields
+	// Data Fields
 	/** The queue of passengers. */
 	private Queue<Passenger> theQueue;
 	/** The number of passengers served. */
@@ -18,7 +17,7 @@ public class PassengerQueue
 	/** The average arrival rate. */
 	private double arrivalRate;
 
-// Constructor
+	// Constructor
 	/**
 	 * Construct a PassengerQueue with the given name.
 	 * 
@@ -32,12 +31,6 @@ public class PassengerQueue
 		theQueue = new LinkedList<Passenger>();
 	}
 
-	/**
-	 * Check if a new arrival has occurred.
-	 * 
-	 * @param clock   The current simulated time
-	 * @param showAll Flag to indicate that detailed data should be output
-	 */
 	/**
 	 * Check if a new arrival has occurred.
 	 * 

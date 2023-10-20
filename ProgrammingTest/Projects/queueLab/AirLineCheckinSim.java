@@ -77,42 +77,39 @@ public class AirLineCheckinSim
 		System.out.println("Passengers in frequent flyer queue: " + frequentFlyerQueue.size());
 		System.out.println("Passengers in regular passenger queue: " + regularPassengerQueue.size());
 	}
-
+	
 	public void enterData()
 	{
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Enter Frequent Flyers per hour : ");
 		int input = scan.nextInt();
-		frequentFlyerQueue.setArrivalRate(input / 60);
-		
+		frequentFlyerQueue.setArrivalRate(input);
+
 		System.out.println("Enter Regular Flyers per hour : ");
 		input = scan.nextInt();
-		regularPassengerQueue.setArrivalRate(input / 60);
-		
+		regularPassengerQueue.setArrivalRate(input);
+
 		System.out.println("Enter max Frequent Flyers between Regular Flyers : ");
 		input = scan.nextInt();
-		frequentFlyersSinceRP = input;
-		
+		frequentFlyerMax = input;
+
 		System.out.println("Enter max processing time(minutes) : ");
 		input = scan.nextInt();
 		maxProcessingTime = input;
 		Passenger.setMaxProcessingTime(maxProcessingTime);
 
-		
 		System.out.println("Enter total simulated time(minutes) : ");
 		input = scan.nextInt();
 		totalTime = input;
-		
+
 		System.out.println("Do you want to see all the data ('y'/'n') : ");
 		char charInput = scan.next().toLowerCase().charAt(0);
-		
-		if('y' == charInput)
+
+		if ('y' == charInput)
 			showAll = true;
 		else
 			showAll = false;
-		
+
 		scan.close();
-	}
-	
-	
+	}	
 }

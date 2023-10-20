@@ -6,7 +6,7 @@ import java.util.Random;
 public class Passenger
 {
 // Data Fields
-	
+
 	private Random randNumberGen;
 	/** The ID number for this passenger. */
 	private int passengerId;
@@ -26,6 +26,7 @@ public class Passenger
 	 */
 	public Passenger(int arrivalTime)
 	{
+		randNumberGen = new Random();
 		this.arrivalTime = arrivalTime;
 		processingTime = 1 + randNumberGen.nextInt(maxProcessingTime);
 		passengerId = idNum++;
