@@ -1,15 +1,27 @@
+/*
+* @author Tyler Snyder
+* @date 10/18/23
+* This class contains the player character and gives access to the methods to interact with the dungeon
+*/
+
 package theLegendOfLinkedList;
 
 public class Hero extends Entity
 {
-	public Hero(int maxLife, int attack, int defense, int speed, int money) //Name, MaxLife, Attack, Defense, Speed, Money
+	public Hero(int maxLife, int attack, int defense, int speed, int money) // Name, MaxLife, Attack, Defense, Speed, Money
 	{
 		super("Player", maxLife, attack, defense, speed, money);
 	}
-	
-	public void createHero(String name, int background) //class gen
+
+	/**
+	 * Handle creating the hero
+	 * 
+	 * @param name - of the player
+	 * @param background - the class being chosen
+	 */
+	public void createHero(String name, int background) // class gen
 	{
-		if(background == 0) // impoverished
+		if (background == 0) // impoverished
 		{
 			setMaxLife(5);
 			setLife(5);
@@ -17,9 +29,9 @@ public class Hero extends Entity
 			setDefense(3);
 			setSpeed(4);
 			setMoney(0);
-			setName(name.replaceAll(" ", "") + " The Impoverished"); //clean spaces off
+			setName(name.replaceAll(" ", "") + " The Impoverished"); // clean spaces off
 		}
-		else if(background == 1) // fighter
+		else if (background == 1) // fighter
 		{
 			setMaxLife(10);
 			setLife(10);
@@ -29,7 +41,7 @@ public class Hero extends Entity
 			setMoney(15);
 			setName(name.replaceAll(" ", "") + " The Fighter");
 		}
-		else if(background == 2) // rogue
+		else if (background == 2) // rogue
 		{
 			setMaxLife(4);
 			setLife(4);
@@ -39,7 +51,7 @@ public class Hero extends Entity
 			setMoney(20);
 			setName(name.replaceAll(" ", "") + " The Rogue");
 		}
-		else if(background == 3) // noble
+		else if (background == 3) // noble
 		{
 			setMaxLife(8);
 			setLife(8);
@@ -49,7 +61,7 @@ public class Hero extends Entity
 			setMoney(100);
 			setName(name.replaceAll(" ", "") + " The Noble");
 		}
-		else if(background == 4) // warrior
+		else if (background == 4) // warrior
 		{
 			setMaxLife(10);
 			setLife(10);
@@ -59,58 +71,88 @@ public class Hero extends Entity
 			setMoney(10);
 			setName(name.replaceAll(" ", "") + " The Warrior");
 		}
-	} 
-	
+	}
+
+	/**
+	 * handle player encountering items
+	 * 
+	 * @param Hero - that is exploring the dungeon
+	 * @param StatChange - item that player finds
+	 */
 	public void find(Hero player, StatChanges event) // items and traps
 	{
 		System.out.println("You Found a " + event.getItemName());
-		if(getMaxLife() + event.getMaxLife() > 0) 
+		if (getMaxLife() + event.getMaxLife() > 0)
 		{
 			setMaxLife(getMaxLife() + event.getMaxLife());
 			setLife(getMaxLife()); // heal when max health changes
 		}
-		else //cant die from items or traps
+		else // cant die from items or traps
 		{
 			setMaxLife(1);
 		}
-		
-		if(getMaxLife() < getLife()) //incase you lose max health
+
+		if (getMaxLife() < getLife()) // incase you lose max health
 		{
 			setLife(getMaxLife());
 		}
-		
+
 		setAttack(getAttack() + event.getAttack());
 		setDefense(getDefense() + event.getDefense());
 		setSpeed(getSpeed() + event.getSpeed());
 		setMoney(getMoney() + event.getMoney());
-		
+
 		System.out.println(event.getItemDescription());
 	}
-	
-	public void battle(Hero player, Monster monster) //battle sequence
+
+	/**
+	 * player encountering monster
+	 * 
+	 * @param Hero - that is exploring the dungeon
+	 * @param Monster - that the player battles
+	 */
+	public void battle(Hero player, Monster monster) // battle sequence
 	{
-		while(player.getLife() > 0 && monster.getLife() > 0)
+		while (player.getLife() > 0 && monster.getLife() > 0)
 		{
-			if(player.compareSpeed(monster))
+			if (player.compareSpeed(monster))
 			{
-				if(!attack(player, monster)) //continues if not dead attack returns true if dead
+				if (!attack(player, monster)) // continues if not dead attack returns true if dead
 				{
 					attack(monster, player);
 				}
 			}
-			else 
+			else
 			{
-				if(!attack(monster, player)) 
+				if (!attack(monster, player))
 				{
 					attack(player, monster);
 				}
 			}
 		}
-		if(player.getLife() > 0) 
+		if (player.getLife() > 0)
 		{
 			System.out.println("You have defeated " + monster.getName() + " and gained " + monster.getXp() + " xp and found " + monster.getMoney() + " Gold");
 			player.gainXp(monster.getXp());
 			player.setMoney(player.getMoney() + monster.getMoney());
+		}
+	}
+
+	/**
+	 * handle player encountering shop
+	 * 
+	 * @param Hero - that is exploring the dungeon
+	 * @param Shop - shop that player finds
+	 */
+	public void buy(Hero player, Shop shop)
+	{
+		if (player.getMoney() > 15)
+		{
+			shop.shopMenu(player);
+		}
+		else
+		{
+			System.out.println("Come back when you have something to give me!");
 		}
 	}
 }

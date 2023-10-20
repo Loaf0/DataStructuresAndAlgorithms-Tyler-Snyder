@@ -1,3 +1,10 @@
+/*
+* @author Tyler Snyder, ChatGPT 
+* @date 10/18/23
+* This is the linked list algorithm behind generating and navigating the dungeon crawler map
+* (ChatGPT ONLY GENERATED THE CONTENTS OF THE ARRAYS THERE IS NO AI GENERATED CODE)
+*/
+
 package theLegendOfLinkedList;
 
 import java.util.Random;
@@ -6,8 +13,7 @@ public class MonsterNameGen
 {
 	private Random rand;
 
-	// String arrays was generated with Chat GPT to save time
-
+	// String arrays was generated with Chat GPT to save time (ChatGPT ONLY GENERATED THE CONTENTS OF THE ARRAYS NO GENERATED CODE)
 	String[] name = { "Julius", "Augustus", "Cicero", "Seneca", "Caligula", "Nero", "Hadrian", "Trajan", "Marcus", "Lucius", "Gaius", "Tiberius", "Antonius", "Brutus", "Pompey", "Livia", "Agrippina",
 			"Octavia", "Cornelia", "Cleopatra", "Vitruvius", "Pliny", "Cassius", "Valerius", "Sulla", "Claudius", "Ovid", "Virgil", "Horace", "Livius", "Cato", "Caelius", "Felix", "Tertius", "Gallus",
 			"Aemilia", "Claudia", "Fulvia", "Sextus", "Drusus", "Gnaeus", "Octavius", "Sergius", "Hostus", "Quintus", "Appius", "Decimus", "Maximus", "Geminus", "Nerva", "Domitian", "Vespasian",

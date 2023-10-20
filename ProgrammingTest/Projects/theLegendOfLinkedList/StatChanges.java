@@ -159,17 +159,26 @@ public class StatChanges extends Event
 		}
 	}
 
+	/**
+	 * @return the itemDescription
+	 */
 	public String getItemDescription()
 	{
 		return itemDescription;
 	}
 	
+	/**
+	 * @return the RoomName
+	 */
 	@Override
 	public String getName()
 	{
 		return roomName;
 	}
 
+	/**
+	 * @return the itemName
+	 */
 	public String getItemName()
 	{
 		return itemName;

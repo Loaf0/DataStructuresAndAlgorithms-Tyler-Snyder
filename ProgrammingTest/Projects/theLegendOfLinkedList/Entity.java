@@ -1,10 +1,13 @@
+/*
+* @author Tyler Snyder
+* @date 10/18/23
+* Entity class use as base for rest of living (or undead) creatures
+*/
+
 package theLegendOfLinkedList;
 
 import java.util.Random;
 
-/*
- * Entity class use as base for rest of living (or undead) creatures
- */
 public class Entity extends Event
 {
 	private Random rand;
@@ -33,7 +36,7 @@ public class Entity extends Event
 		xpRequirement = 100;
 		rand = new Random();
 	}
-	
+
 	public Entity(String name, int newMaxLife, int newAttack, int newDefense, int newSpeed, int newMoney) // MaxLife, Attack, Defense, Speed, Money
 	{
 		name = "";
@@ -48,7 +51,7 @@ public class Entity extends Event
 		xpRequirement = 100;
 		rand = new Random();
 	}
-	
+
 	/**
 	 * @param entity - the attacker
 	 * @param entity - the target for the attack
@@ -58,21 +61,21 @@ public class Entity extends Event
 	{
 		int randInt = rand.nextInt(10);
 		int dmg = 0;
-		
-		if(randInt >= 5) // 10% crit chance to ingore armor stops stalemate
+
+		if (randInt >= 5) // 10% crit chance to ingore armor stops stalemate
 		{
-			 dmg = (attacker.getAttack() - (defender.getDefense()));
+			dmg = (attacker.getAttack() - (defender.getDefense()));
 		}
-		else if(randInt == 0)//crit
+		else if (randInt == 0)// crit
 		{
-			dmg = attacker.getAttack()*2;
+			dmg = attacker.getAttack() * 2;
 		}
 		else // armor avoid
 		{
 			dmg = attacker.getAttack();
 		}
-		
-		if(dmg > 0)// so you can't accidentally heal enemies
+
+		if (dmg > 0)// so you can't accidentally heal enemies
 		{
 			defender.setLife(defender.getLife() - dmg);
 			System.out.println(attacker.getName() + "'s attack dealt " + dmg + " damage!");
@@ -81,7 +84,7 @@ public class Entity extends Event
 		{
 			System.out.println(attacker.getName() + "'s attack was blocked!");
 		}
-		
+
 		if (defender.getLife() < 0)
 		{
 			return true;
@@ -93,6 +96,8 @@ public class Entity extends Event
 	}
 
 	/**
+	 * compare speed of two entites
+	 * 
 	 * @param entity - the target for the speed comparison
 	 * @return boolean - true if entity dies false if otherwise
 	 */
@@ -108,9 +113,9 @@ public class Entity extends Event
 		}
 	}
 
-	
 	/**
 	 * execute on level up
+	 * 
 	 * @param entity - the target for the attack
 	 */
 	public void levelUp()
@@ -137,21 +142,14 @@ public class Entity extends Event
 			levelUp();
 		}
 	}
-	
+
 	/**
 	 * Print player stats
 	 */
-	public void printStats() 		// MaxLife, Attack, Defense, Speed, Money
+	public void printStats() // MaxLife, Attack, Defense, Speed, Money
 	{
-		System.out.println(
-				"Name : " + name +
-				"\nHealth : " + life + "/" + maxLife +
-				"\nAttack : " + attack +
-				"\nDefense : " + defense +
-				"\nSpeed : " + speed +
-				"\nXP : " + xp +
-				"\nLevel : " + level +
-				"\nGold : " + money);
+		System.out.println("Name : " + name + "\nHealth : " + life + "/" + maxLife + "\nAttack : " + attack + "\nDefense : " + defense + "\nSpeed : " + speed + "\nXP : " + xp + "\nLevel : " + level
+				+ "\nGold : " + money);
 	}
 
 	/**
@@ -285,6 +283,7 @@ public class Entity extends Event
 	/**
 	 * @return the Name
 	 */
+	@Override
 	public String getName()
 	{
 		return name;

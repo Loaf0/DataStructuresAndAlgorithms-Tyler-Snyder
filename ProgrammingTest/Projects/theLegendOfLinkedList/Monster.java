@@ -18,24 +18,24 @@ public class Monster extends Entity
 		
 		if (boss)
 		{
-			setMaxLife((rand.nextInt(10)+1) * difficulty);
+			setMaxLife((rand.nextInt(10)+1) * difficulty/2);
 			setLife(getMaxLife());
-			setAttack((rand.nextInt(5)+1) * difficulty);
-			setDefense((rand.nextInt(5)+1) * difficulty);
-			setSpeed((rand.nextInt(2)+1) * difficulty);
-			setMoney((rand.nextInt(10)+1) * difficulty);
-			setXp((rand.nextInt(80)+1) * difficulty);
+			setAttack((rand.nextInt(5)+1) * difficulty/2);
+			setDefense((rand.nextInt(5)+1) * difficulty/2);
+			setSpeed((rand.nextInt(2)+1) * difficulty/2);
+			setMoney((rand.nextInt(10)+1) * difficulty/2);
+			setXp((rand.nextInt(80)+20) * difficulty/2);
 			setName(nameGen.bossNameGenerator());
 		}
 		else
 		{
-			setMaxLife((rand.nextInt(5)+3) * difficulty);
+			setMaxLife((rand.nextInt(5)+3) * difficulty/2);
 			setLife(getMaxLife());
-			setAttack((rand.nextInt(2)+1) * difficulty);
-			setDefense((rand.nextInt(2)+1) * difficulty);
-			setSpeed((rand.nextInt(1)+1) * difficulty);
-			setMoney((rand.nextInt(5)+1) * difficulty);
-			setXp((rand.nextInt(50)+1) * difficulty);
+			setAttack((rand.nextInt(2)+1) * difficulty/2);
+			setDefense((rand.nextInt(2)+1) * difficulty/2);
+			setSpeed((rand.nextInt(1)+1) * difficulty/2);
+			setMoney((rand.nextInt(5)+1) * difficulty/2);
+			setXp((rand.nextInt(50)+1) * difficulty/2);
 			setName(nameGen.enemyTypeGenerator());
 		}
 	}
