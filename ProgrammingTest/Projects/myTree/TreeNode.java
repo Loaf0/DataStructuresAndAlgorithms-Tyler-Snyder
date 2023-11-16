@@ -16,7 +16,7 @@ public class TreeNode
 		data = newData;
 	}
 	
-	public void remove(int target) //UNFINISHED 
+	public void remove(int target) //UNFINISHED  
 	{
 		if (target != data)
 		{

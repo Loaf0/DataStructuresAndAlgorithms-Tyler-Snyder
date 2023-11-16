@@ -6,7 +6,7 @@ public class TreeTester
 	{
 		MyBinaryTree bTree = new MyBinaryTree();
 		
-		int[] arr = {6, 4, 3, 2, 22, 64, 100 , 86, 35, 33 , 25, 7};
+		int[] arr = {6, 4, 3, 2, 22, 64, 100 , 86, 35, 33 , 25, 7}; 
 		
 		bTree.add(arr);
 		//bTree.add(10);

@@ -3,7 +3,7 @@ package myTree;
 * @author Tyler Snyder
 * @date 11/16/23
 * This is a binary tree data type I programmed for class
-*/
+*/ 
 
 public class MyBinaryTree
 {
