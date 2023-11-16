@@ -16,7 +16,7 @@ public class TreeNode
 		data = newData;
 	}
 	
-	public void remove(int target) 
+	public void remove(int target) //UNFINISHED 
 	{
 		if (target != data)
 		{
@@ -88,7 +88,6 @@ public class TreeNode
 
 	public String preorderToString()
 	{
-		// grab left side add self grab right side
 		String output = "";
 		if (left != null)
 		{
@@ -107,7 +106,6 @@ public class TreeNode
 
 	public String postorderToString()
 	{
-		// grab right side add self grab left side
 		String output = "";
 		if (left != null)
 		{
