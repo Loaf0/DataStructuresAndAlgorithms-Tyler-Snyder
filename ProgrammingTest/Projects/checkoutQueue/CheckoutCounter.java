@@ -11,36 +11,52 @@ public class CheckoutCounter
 	private int waitTime;
 	private int freeTime;
 	private int items;
+	private int internalClock;
 	
 	public CheckoutCounter() 
 	{
 		queue = new LinkedList<Customer>();
+		internalClock = 0;
 		setWaitTime(0);
 		setFreeTime(0);
 		setMaxLength(0);
 		setCustomers(0);
+		
 	}
 	
 	public void runTick(int globalClock) //tick happens every 5 seconds
 	{
-		int size = queue.size();
-		
-		if(size > maxLength) 
+		//System.out.println("Internal Time " + internalClock + " Global Time : " + globalClock);
+
+		if(globalClock >= internalClock) 
 		{
-			maxLength = size;
+			int size = queue.size();
+			
+			if(size > maxLength) 
+			{
+				maxLength = size;
+			}
+			
+			if(size > 0) 
+			{
+				internalClock = globalClock;
+				
+				Customer customer = queue.poll(); 
+				waitTime = internalClock - customer.getArrival();
+				customer.setArrival(internalClock); //calc time waiting in line
+				
+				internalClock += customer.getNumItems() * 5; //calc time needed
+				items += customer.getNumItems();
+				
+				customer.setDeparture(internalClock);
+				System.out.println("from " + customer.getArrival() + " to " + customer.getDeparture() + " with " + customer.getNumItems() + "             Internal Time " + internalClock + " Starting Time : " + globalClock);
+
+				
+			}
+			
 		}
 		
-		if(size > 0) 
-		{
-			Customer customer = queue.poll(); 
-			waitTime = globalClock - customer.getArrival();
-			customer.setArrival(globalClock); //calc time waiting in line
-			
-			globalClock += customer.getNumItems() * 5; //calc time needed
-			items += customer.getNumItems();
-			
-			customer.setDeparture(globalClock);
-		}
+		
 	}
 	
 	public void addCustomer(Customer person, int globalClock) 
