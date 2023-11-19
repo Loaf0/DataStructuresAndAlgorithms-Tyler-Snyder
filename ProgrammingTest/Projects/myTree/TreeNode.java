@@ -15,26 +15,36 @@ public class TreeNode
 	{
 		data = newData;
 	}
-	
-	public void remove(int target) //UNFINISHED  
+
+	public void remove(int target) // UNFINISHED
 	{
-		if (target != data)
+		if (left.getData() != target && right.getData() != target)
 		{
 			if (target < data)
 			{
-				
+				left.remove(target);
 			}
 			else
 			{
-				
+				right.remove(target);
 			}
 		}
-		else 
-		{
-			
-		}
+		
+		
 	}
-	
+
+	public TreeNode findLargest()
+	{
+		if (right != null)
+		{
+			if (right.getRight() != null)
+				return right.findLargest();
+			else
+				return right;
+		}
+		return null;
+	}
+
 	public void add(int newData)
 	{
 		if (newData != data)
@@ -63,20 +73,20 @@ public class TreeNode
 
 		if (value < data)
 		{
-			if (left != null) 
+			if (left != null)
 			{
 				if (left.getData() == value)
-					return true; 
+					return true;
 				else
 					return left.contains(value);
 			}
 		}
 		else
 		{
-			if (right != null) 
+			if (right != null)
 			{
 				if (right.getData() == value)
-					return true; 
+					return true;
 				else
 					return right.contains(value);
 			}

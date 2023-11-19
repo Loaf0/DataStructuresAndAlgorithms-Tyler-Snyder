@@ -1,4 +1,4 @@
-package queueLab2;
+package checkoutQueue;
 
 import java.util.Random;
 

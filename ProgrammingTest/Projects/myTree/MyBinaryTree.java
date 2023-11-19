@@ -30,6 +30,11 @@ public class MyBinaryTree
 		return root.contains(value);
 	}
 	
+	public int findLargestValue() 
+	{
+		return root.findLargest().getData();
+	}
+	
 	public void add(int[] arr) 
 	{
 		for(int i : arr) 
@@ -41,6 +46,7 @@ public class MyBinaryTree
 	public void add(int newData) 
 	{
 		size = getSize() + 1;
+		
 		if(root == null) 
 		{
 			root = new TreeNode(newData);
@@ -53,7 +59,7 @@ public class MyBinaryTree
 	
 	public boolean remove(int target) // node.remove() is UNFINISHED wont run
 	{
-		if(root.contains(target)) 
+		if(contains(target)) 
 		{
 			root.remove(target);
 			return true;
