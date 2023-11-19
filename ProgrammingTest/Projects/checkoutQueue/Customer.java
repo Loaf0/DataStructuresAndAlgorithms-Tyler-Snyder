@@ -5,6 +5,8 @@ import java.util.Random;
 public class Customer
 {
 	private int numItems;
+	private int arrival;
+	private int departure;
 	
 	public Customer(int upperLimit) 
 	{
@@ -21,5 +23,25 @@ public class Customer
 	{
 		numItems--;
 		return numItems;
+	}
+
+	public int getArrival()
+	{
+		return arrival;
+	}
+
+	public void setArrival(int arrival)
+	{
+		this.arrival = arrival;
+	}
+
+	public int getDeparture()
+	{
+		return departure;
+	}
+
+	public void setDeparture(int departure)
+	{
+		this.departure = departure;
 	}
 }

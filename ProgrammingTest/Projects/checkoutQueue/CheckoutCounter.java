@@ -6,67 +6,49 @@ import java.util.Queue;
 public class CheckoutCounter
 {
 	private Queue<Customer> queue;
-	private int customers;
 	private int maxLength;
+	private int customers;
+	private int waitTime;
 	private int freeTime;
-	private int timeWaited;
-	private int timeElapsed; //in minutes
-	private boolean running;
+	private int items;
 	
 	public CheckoutCounter() 
 	{
 		queue = new LinkedList<Customer>();
+		setWaitTime(0);
+		setFreeTime(0);
 		setMaxLength(0);
 		setCustomers(0);
-		setTimeWaited(0);
-		setTimeElapsed(0);
 	}
 	
-	public void fillArr(CheckoutCounter[] checkouts, int size) 
+	public void runTick(int globalClock) //tick happens every 5 seconds
 	{
-		for(int i = 0; i < size; i++) 
-		{
-			checkouts[i] = new CheckoutCounter();
-		}
-		setMaxLength(checkouts.length);
-	}
-	
-	public void runTick()
-	{
-		Customer currentCustomer = null;
+		int size = queue.size();
 		
-		if(currentCustomer == null)
+		if(size > maxLength) 
 		{
-			currentCustomer = queue.poll();
+			maxLength = size;
 		}
 		
-		if(queue.size() >= 0) 
+		if(size > 0) 
 		{
-			if(currentCustomer.getNumItems() <= 0) 
-			{
-				currentCustomer = queue.poll();
-			}
-			currentCustomer.removeItem();
-			timeElapsed += 5;
+			Customer customer = queue.poll(); 
+			waitTime = globalClock - customer.getArrival();
+			customer.setArrival(globalClock); //calc time waiting in line
 			
-			if(queue.size() > 0) 
-			{
-				timeWaited += 5;
-			}
+			globalClock += customer.getNumItems() * 5; //calc time needed
+			items += customer.getNumItems();
 			
-			running = true;
-		}
-		else
-		{
-			timeElapsed += 5;
-			setFreeTime(getFreeTime() + 5);
-			running = false;
+			customer.setDeparture(globalClock);
 		}
 	}
 	
-	public void addCustomer(Customer person) 
-	{
-		queue.size();
+	public void addCustomer(Customer person, int globalClock) 
+	{ 
+		if(queue.size() < 1) //time it takes to mesure between customers
+		{
+			freeTime = freeTime + (globalClock - person.getArrival());			
+		}
 		customers++;
 		queue.offer(person);
 	}
@@ -91,34 +73,24 @@ public class CheckoutCounter
 		this.customers = customers;
 	}
 
-	public int getTimeWaited()
+	public int getMaxLength()
 	{
-		return timeWaited;
+		return maxLength;
 	}
 
-	public void setTimeWaited(int timeWaited)
+	public void setMaxLength(int maxLength)
 	{
-		this.timeWaited = timeWaited;
+		this.maxLength = maxLength;
 	}
 
-	public int getTimeElapsed()
+	public int getItems()
 	{
-		return timeElapsed;
+		return items;
 	}
 
-	public void setTimeElapsed(int timeElapsed)
+	public void setItems(int items)
 	{
-		this.timeElapsed = timeElapsed;
-	}
-
-	public boolean isRunning()
-	{
-		return running;
-	}
-
-	public void setRunning(boolean running)
-	{
-		this.running = running;
+		this.items = items;
 	}
 
 	public int getFreeTime()
@@ -131,14 +103,14 @@ public class CheckoutCounter
 		this.freeTime = freeTime;
 	}
 
-	public int getMaxLength()
+	public int getWaitTime()
 	{
-		return maxLength;
+		return waitTime;
 	}
 
-	public void setMaxLength(int maxLength)
+	public void setWaitTime(int waitTime)
 	{
-		this.maxLength = maxLength;
+		this.waitTime = waitTime;
 	}
 	
 	

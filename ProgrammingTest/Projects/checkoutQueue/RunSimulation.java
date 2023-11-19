@@ -11,6 +11,7 @@ public class RunSimulation
 		int arrivalRate = 10; //The arrival rate of customers per hour
 		int maxItems = 20; //The maximum number of items
 		int maxSimTime = 120; //The simulation time
+		
 		int amountOfSuperExpress = 1;
 		int amountOfExpress = 2;
 		int amountOfCheckout = 3;
@@ -22,43 +23,60 @@ public class RunSimulation
 		fillArray(expressCheckouts, 2);
 		fillArray(checkouts, amountOfCheckout);
 		
-		int customers = (maxSimTime / 60) * arrivalRate;
+		int customers = maxSimTime/60 * arrivalRate;
+		int customersTaken = 0;
 		
-		for(int i = 0; i < customers; i++) 
+		boolean running = true;
+		int globalClock = 0;
+		while(running) 
 		{
-			Customer nextCustomer = new Customer(maxItems);
-			
-			if(nextCustomer.getNumItems() < numSuper) //super express checkouts
+			if(globalClock >= maxSimTime / 60 * arrivalRate * customersTaken+1)
 			{
-				superExpressCheckout.addCustomer(nextCustomer);
-			}
-			else if(nextCustomer.getNumItems() < numExp) //express checkouts
-			{
-				if(expressCheckouts[0].getSize() <= expressCheckouts[1].getSize()) 
+				Customer nextCustomer = new Customer(maxItems);
+				customersTaken++;
+				
+		        if(nextCustomer.getNumItems() < numSuper) //super express checkouts
 				{
-					expressCheckouts[0].addCustomer(nextCustomer);
+					superExpressCheckout.addCustomer(nextCustomer, globalClock);
 				}
-				else
+				else if(nextCustomer.getNumItems() < numExp) //express checkouts
 				{
-					expressCheckouts[0].addCustomer(nextCustomer);
-				}
-			}
-			else //normal checkouts
-			{
-				int min = 0;
-				if(min != 0)
-				{
-					for(int j = 0; j < amountOfCheckout; j++) 
+					if(expressCheckouts[0].getSize() <= expressCheckouts[1].getSize()) 
 					{
-						if(checkouts[j].getSize() < checkouts[min].getSize()) 
-						{
-							min = j;
-						}
+						expressCheckouts[0].addCustomer(nextCustomer, globalClock);
+					}
+					else
+					{
+						expressCheckouts[0].addCustomer(nextCustomer, globalClock);
 					}
 				}
-				checkouts[min].addCustomer(nextCustomer);
+				else //normal checkouts
+				{
+					int min = 0;
+					if(min != 0)
+					{
+						for(int j = 0; j < amountOfCheckout; j++) 
+						{
+							if(checkouts[j].getSize() < checkouts[min].getSize()) 
+							{
+								min = j;
+							}
+						}
+					}
+					checkouts[min].addCustomer(nextCustomer, globalClock);
+				}
+		    }
+			System.out.println("Time : " + globalClock + " Customers Left " + (customers - customersTaken));
+			
+			globalClock += 5;
+			
+			if(maxSimTime*60 < globalClock)
+			{
+				running = false;
 			}
+
 		}
+		
 	}
 	
 	public static void fillArray(CheckoutCounter[] checkouts, int size) 
