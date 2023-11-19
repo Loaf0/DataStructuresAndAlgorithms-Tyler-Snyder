@@ -26,8 +26,8 @@ public class CheckoutCounter
 	
 	public void runTick(int globalClock) //tick happens every 5 seconds
 	{
-		//System.out.println("Internal Time " + internalClock + " Global Time : " + globalClock);
 
+		//System.out.println("Internal Time " + internalClock + " Global Time : " + globalClock);
 		if(globalClock >= internalClock) 
 		{
 			int size = queue.size();
@@ -49,22 +49,19 @@ public class CheckoutCounter
 				items += customer.getNumItems();
 				
 				customer.setDeparture(internalClock);
-				System.out.println("from " + customer.getArrival() + " to " + customer.getDeparture() + " with " + customer.getNumItems() + "             Internal Time " + internalClock + " Starting Time : " + globalClock);
-
-				
+				//System.out.println("from " + customer.getArrival() + " to " + customer.getDeparture() + " with " + customer.getNumItems() + "      Internal Time " + internalClock + " Starting Time : " + globalClock);
+			}
+			else
+			{
+				freeTime += 5;
 			}
 			
 		}
-		
 		
 	}
 	
 	public void addCustomer(Customer person, int globalClock) 
 	{ 
-		if(queue.size() < 1) //time it takes to mesure between customers
-		{
-			freeTime = freeTime + (globalClock - person.getArrival());			
-		}
 		customers++;
 		queue.offer(person);
 	}
