@@ -20,7 +20,7 @@ public class TestSort
 		}*/
 		
 		//long mergeTime = System.currentTimeMillis();
-		ts.mergeSort(arr);
+		ts.shellSort(arr);
 		//mergeTime = System.currentTimeMillis() - mergeTime;
 		ts.print(arr);
 		//System.out.println("Bubble sort time :"  + mergeTime);

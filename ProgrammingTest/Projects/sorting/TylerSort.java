@@ -110,32 +110,32 @@ public class TylerSort
 
 			mergeSort(firstArr);
 			mergeSort(secondArr);
-			
+
 			int l = 0;
 			int r = 0;
 			arr.clear();
-			
-			while(l < firstArr.size() && r < secondArr.size()) 
+
+			while (l < firstArr.size() && r < secondArr.size())
 			{
-				if(firstArr.get(l) > secondArr.get(r)) 
+				if (firstArr.get(l) > secondArr.get(r))
 				{
 					arr.add(secondArr.get(r));
 					r++;
 				}
-				else 
+				else
 				{
 					arr.add(firstArr.get(l));
 					l++;
 				}
 			}
-			
-			while(l < firstArr.size()) 
+
+			while (l < firstArr.size())
 			{
 				arr.add(firstArr.get(l));
 				l++;
 			}
-			
-			while(r < secondArr.size()) 
+
+			while (r < secondArr.size())
 			{
 				arr.add(secondArr.get(r));
 				r++;
@@ -146,32 +146,45 @@ public class TylerSort
 
 	public ArrayList<Integer> randSort(ArrayList<Integer> arr)
 	{
-		boolean loop = true;
-		boolean swap = false;
 
-		while (loop)
+		return arr;
+	}
+
+	public ArrayList<Integer> shellSort(ArrayList<Integer> arr) //broken destroys first 2
+	{
+		int interval = 1;
+		int elements = arr.size();
+		int i = 0;
+
+		while (interval <= elements / 3)
 		{
-			swap = false;
-			for (int i = 0; i < arr.size() - 1; i++)
+			interval = interval * 3 + 1;
+		}
+		while (interval > 0)
+		{
+			System.out.print("iteration " + i + " ");
+			for (int outer = interval; outer < elements; outer++)
 			{
-				if (arr.get(i) > arr.get(i + 1))
+				int valueToInsert = arr.get(outer);
+				int inner = outer;
+				while (inner > interval - 1 && arr.get(inner - interval) >= valueToInsert)
 				{
-					swap = true;
+					arr.set(inner, inner - interval);
+					inner -= interval;
+					System.out.println(" item moved :" + arr.get(inner));
 				}
+				arr.set(inner, valueToInsert);
+				System.out.println(" item inserted :" + valueToInsert + ", at position :" + inner);
 			}
-
-			if (!swap)
-			{
-				loop = false;
-			}
-
+			interval = (interval - 1) / 3;
+			i++;
 		}
 		return arr;
 	}
-	
+
 	public void print(ArrayList<Integer> arr)
 	{
-		if(arr.size() > 0) 
+		if (arr.size() > 0)
 		{
 			for (int i = 0; i < arr.size() - 1; i++)
 			{
