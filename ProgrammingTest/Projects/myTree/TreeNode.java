@@ -1,4 +1,7 @@
 package myTree;
+
+import java.util.Queue;
+
 /*
 * @author Tyler Snyder
 * @date 11/16/23
@@ -7,42 +10,93 @@ package myTree;
 
 public class TreeNode
 {
-	private TreeNode left;
-	private TreeNode right;
-	private int data;
+	TreeNode left;
+	TreeNode right;
+	int data;
 
 	public TreeNode(int newData)
 	{
 		data = newData;
 	}
 
-	public void remove(int target) // UNFINISHED
+	public String dftString()
 	{
-		if (left.getData() != target && right.getData() != target)
-		{
-			if (target < data)
-			{
-				left.remove(target);
-			}
-			else
-			{
-				right.remove(target);
-			}
-		}
-		
-		
-	}
+		String output = "";
 
-	public TreeNode findLargest()
-	{
+		if (left != null)
+		{
+			output = output + left.dftString();
+		}
+
+		output = output + data + " ";
+
 		if (right != null)
 		{
-			if (right.getRight() != null)
-				return right.findLargest();
-			else
-				return right;
+			output = output + right.dftString();
 		}
-		return null;
+
+		return output;
+	}
+
+	public String bfsString(Queue<TreeNode> order)
+	{
+		String output = "";
+		while(!order.isEmpty())
+		{
+			if(order.peek().getLeft() != null) 
+			{
+				order.offer(order.peek().getLeft());
+			}
+			if(order.peek().getRight() != null) 
+			{
+				order.offer(order.peek().getRight());
+			}
+			output = output + " " + order.poll().getData();
+		}
+		return output;
+	}
+
+	public boolean dftContains(int target)
+	{
+		boolean found = false;
+
+		if (left != null && !found)
+		{
+			found = left.dftContains(target);
+		}
+
+		if (target == data)
+		{
+			return true;
+		}
+
+		if (right != null && !found)
+		{
+			found = right.dftContains(target);
+		}
+
+		return found;
+	}
+
+	public boolean bfsContains(Queue<TreeNode> order, int target)
+	{
+		while(!order.isEmpty())
+		{
+			if(order.peek().getLeft() != null) 
+			{
+				order.offer(order.peek().getLeft());
+			}
+			if(order.peek().getRight() != null) 
+			{
+				order.offer(order.peek().getRight());
+			}
+			
+			if(order.poll().getData() == target) 
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void add(int newData)
@@ -96,6 +150,36 @@ public class TreeNode
 		return false;
 	}
 
+	public TreeNode recursiveDelete(TreeNode localRoot, int value) //based on the remove algorithm on digital ocean by Anupam Chugh
+	{
+		if (localRoot == null) // check if local Root exists
+		{
+			return localRoot;
+		}
+
+		if (value < localRoot.data) // set left to recusiveDeletion from left tree
+		{
+			localRoot.setLeft(recursiveDelete(localRoot.getLeft(), value));
+		}
+		else if (value > localRoot.data) // set right to recusiveDeletion from right tree
+		{
+			localRoot.setRight(recursiveDelete(localRoot.getRight(), value));
+		}
+		else // item is in local root
+		{
+			if (localRoot.getLeft() == null)
+			{
+				return localRoot.getRight();
+			}
+			else if (localRoot.getRight() == null)
+				return localRoot.getLeft();
+
+			localRoot.setData(findSucessor(localRoot.getRight())); // find inorder successor
+			localRoot.setRight(recursiveDelete(localRoot.getRight(), localRoot.getData()));
+		}
+		return localRoot; 
+	}
+
 	public String preorderToString()
 	{
 		String output = "";
@@ -112,6 +196,28 @@ public class TreeNode
 		}
 
 		return output;
+	}
+
+	public int findSucessor(TreeNode node)
+	{
+		int minimum = node.getData();
+		while (node.getLeft() != null)
+		{
+			minimum = node.getLeft().getData();
+			node = node.getLeft();
+		}
+		return minimum;
+	}
+
+	public int findPredecessor(TreeNode node)
+	{
+		int largest = node.getData();
+		while (node.getRight() != null)
+		{
+			largest = node.getRight().getData();
+			node = node.getRight();
+		}
+		return largest;
 	}
 
 	public String postorderToString()
@@ -132,9 +238,59 @@ public class TreeNode
 		return output;
 	}
 
+	public TreeNode getLeftSubtree()
+	{
+		if (left != null)
+		{
+			return left;
+		}
+		return null;
+	}
+
+	public TreeNode getRightSubtree()
+	{
+		if (right != null)
+		{
+			return right;
+		}
+		return null;
+	}
+
+	public TreeNode findLargest()
+	{
+		if (right != null)
+		{
+			if (right.getRight() != null)
+				return right.findLargest();
+			else
+				return right;
+		}
+		return null;
+	}
+
+	public int children()
+	{
+		int output = 0;
+		if (left != null)
+			output++;
+		if (right != null)
+			output++;
+		return output;
+	}
+
+	public boolean isLeaf()
+	{
+		return (left != null && right != null);
+	}
+
 	public int getData()
 	{
 		return data;
+	}
+
+	public void setData(int newData)
+	{
+		data = newData;
 	}
 
 	public TreeNode getLeft()

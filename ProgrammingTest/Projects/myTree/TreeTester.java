@@ -2,24 +2,29 @@ package myTree;
 
 public class TreeTester
 {
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
-		MyBinaryTree bTree = new MyBinaryTree();
-		
-		int[] arr = {6, 4, 3, 2, 22, 64, 100 , 86, 35, 33 , 25, 7}; 
-		
-		bTree.add(10);
+		MyIteratableBinaryTree bTree = new MyIteratableBinaryTree();
+
+		int[] arr = {12, 11, 13, 8, 7, 9};
+
+		bTree.add(10); //root term
 		bTree.add(arr);
+
+		System.out.println("Depth-first Traversal : Contains Method");
+		System.out.println(bTree.dftContains(9));
 		
-		System.out.println(bTree.getSize());
-		System.out.println(bTree.findLargestValue());
-		int target = 5;
-		System.out.println("the tree contains " + target + " : " + bTree.contains(target) );
+		System.out.println("Breadth‐first Traversal : Contains Method");
+		System.out.println(bTree.bfsContains(9));
+
+
+		bTree.initilizeCurrent();
+		System.out.println("Starting Iteration");
+		while(bTree.hasNext()) 
+		{
+			System.out.print(bTree.next() + " ");
+		}
 		
-		bTree.printPreorder();
 		
-		bTree.remove(6);
-		
-		bTree.printPostorder();
 	}
 }

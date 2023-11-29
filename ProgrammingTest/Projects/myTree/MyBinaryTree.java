@@ -3,70 +3,92 @@ package myTree;
 * @author Tyler Snyder
 * @date 11/16/23
 * This is a binary tree data type I programmed for class
-*/ 
+*/
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MyBinaryTree
 {
 	private TreeNode root;
 	private int size = 0;
-	
-	public MyBinaryTree() 
+
+	public MyBinaryTree()
 	{
-		
+
 	}
-	
-	public MyBinaryTree(int data) 
+
+	public MyBinaryTree(int data)
 	{
 		root = new TreeNode(data);
 	}
 
-	public boolean contains(int value) 
+	public void dftPrint()
 	{
-		if(root.getData() == value) 
+		System.out.println(root.dftString());
+	}
+
+	public void bfsPrint()
+	{
+		Queue<TreeNode> order = new LinkedList<TreeNode>();
+		order.offer(root);
+		System.out.println(root.bfsString(order));
+	}
+
+	public boolean dftContains(int target)
+	{
+		return root.dftContains(target);
+	}
+
+	public boolean bfsContains(int target)
+	{
+		Queue<TreeNode> order = new LinkedList<TreeNode>();
+		order.offer(root);
+		return root.bfsContains(order, target);
+	}
+	
+	public boolean contains(int value)
+	{
+		if (root.getData() == value)
 		{
 			return true;
 		}
-		
+
 		return root.contains(value);
 	}
-	
-	public int findLargestValue() 
+
+	public int findLargestValue()
 	{
-		return root.findLargest().getData();
+		return root.findSucessor(root);
 	}
-	
-	public void add(int[] arr) 
+
+	public void add(int[] arr)
 	{
-		for(int i : arr) 
+		for (int i : arr)
 		{
 			add(i);
 		}
 	}
-	
-	public void add(int newData) 
+
+	public void add(int newData)
 	{
 		size = getSize() + 1;
-		
-		if(root == null) 
+
+		if (root == null)
 		{
 			root = new TreeNode(newData);
 		}
-		else 
+		else
 		{
 			root.add(newData);
 		}
 	}
-	
-	public boolean remove(int target) // node.remove() is UNFINISHED wont run
+
+	public TreeNode delete(int target)
 	{
-		if(contains(target)) 
-		{
-			root.remove(target);
-			return true;
-		}
-		return false; //target doesn't exist
+		return root.recursiveDelete(root, target);
 	}
-	
+
 	public TreeNode getRoot()
 	{
 		return root;
@@ -81,12 +103,12 @@ public class MyBinaryTree
 	{
 		return size;
 	}
-	
+
 	public void printPreorder()
 	{
-		System.out.println(root.preorderToString().substring(1)); //clean up output
+		System.out.println(root.preorderToString().substring(1)); // clean up output
 	}
-	
+
 	public void printPostorder()
 	{
 		System.out.println(root.postorderToString());
