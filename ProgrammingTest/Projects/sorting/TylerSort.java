@@ -1,9 +1,20 @@
 package sorting;
+import java.util.Random;
+
+import myTree.MyBinaryTree;
 
 import java.util.ArrayList;
 
+
 public class TylerSort
 {
+	Random rand;
+	
+	public TylerSort() 
+	{
+		rand = new Random();
+	}
+	
 	public ArrayList<Integer> bubbleSort(ArrayList<Integer> arr)
 	{
 		boolean loop = true;
@@ -144,44 +155,117 @@ public class TylerSort
 		return arr;
 	}
 
-	public ArrayList<Integer> randSort(ArrayList<Integer> arr)
+	public ArrayList<Integer> shellSort(ArrayList<Integer> arr) // written from blackboard provided psudocode on tutorialspoint.com
 	{
-
-		return arr;
-	}
-
-	public ArrayList<Integer> shellSort(ArrayList<Integer> arr) //broken destroys first 2
-	{
-		int interval = 1;
-		int elements = arr.size();
-		int i = 0;
-
-		while (interval <= elements / 3)
+		int interval = 0;
+		int valueToInsert = -1;
+		int inner = -1;
+		
+		while(interval < arr.size()/3) // 0 1 3 10 31 64
 		{
 			interval = interval * 3 + 1;
 		}
-		while (interval > 0)
+		
+		while(interval > 0) 
 		{
-			System.out.print("iteration " + i + " ");
-			for (int outer = interval; outer < elements; outer++)
+			for(int outer = 0; outer < arr.size(); outer++) 
 			{
-				int valueToInsert = arr.get(outer);
-				int inner = outer;
-				while (inner > interval - 1 && arr.get(inner - interval) >= valueToInsert)
+				valueToInsert = arr.get(outer);
+				inner = outer;
+				
+				while(inner > interval - 1 && arr.get(inner - interval) >= valueToInsert) 
 				{
 					arr.set(inner, inner - interval);
 					inner -= interval;
-					System.out.println(" item moved :" + arr.get(inner));
 				}
+				
 				arr.set(inner, valueToInsert);
-				System.out.println(" item inserted :" + valueToInsert + ", at position :" + inner);
 			}
-			interval = (interval - 1) / 3;
-			i++;
+			interval = (interval - 1) / 3; 		
 		}
 		return arr;
 	}
 
+	public ArrayList<Integer> quickSort(ArrayList<Integer> arr) //algorithm written freehand based on this image https://www.geeksforgeeks.org/wp-content/uploads/gq/2014/01/QuickSort2.png
+	{
+		int pivot = (int) ((arr.size() - 1) * Math.random()); //from first to last of arr size
+		int index = 0;
+		
+		ArrayList<Integer> left = new ArrayList<Integer>();
+		ArrayList<Integer> right = new ArrayList<Integer>();
+		
+		while(arr.size() > 1) 
+		{
+			if(arr.get(pivot) > arr.get(index)) 
+			{
+				left.add(arr.get(index));
+				arr.remove(index);
+				index--;
+			}
+			else if(arr.get(pivot) <= arr.get(index)) 
+			{
+				right.add(arr.get(index));
+				arr.remove(index);
+				index--;
+			}
+			index++;
+		}
+		
+		
+		System.out.println(pivot);
+		System.out.println(left.toString());
+		System.out.println(right.toString());
+		return arr;
+	}
+	
+	ArrayList<Integer> heapSort(ArrayList<Integer> arr)
+	{
+		return arr;
+	}
+	
+	public boolean validate(ArrayList<Integer> arr) 
+	{	
+		for(int i = 0; i < arr.size()-1; i++) 
+		{
+			if(arr.get(i) <= arr.get(i+1)) 
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public int linearSearch(ArrayList<Integer> arr, int target) 
+	{
+		for(int i = 0; i < arr.size(); i++) 
+		{
+			if(arr.get(i) == target) 
+			{
+				return i;
+			}
+		}
+		
+		return -1;
+	}
+	
+	public boolean binaryTreeSearch(ArrayList<Integer> arr, int target) 
+	{
+		MyBinaryTree bt = new MyBinaryTree();
+		
+		bt.add(arr);
+				
+		bt.dftPrint();
+		return bt.dftContains(target);
+	}
+	
+	public int binarySearch(ArrayList<Integer> arr, int target) 
+	{
+		
+		return -1;
+	}
+	
+	
+	
 	public void print(ArrayList<Integer> arr)
 	{
 		if (arr.size() > 0)

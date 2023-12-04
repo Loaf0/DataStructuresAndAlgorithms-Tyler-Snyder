@@ -120,36 +120,6 @@ public class TreeNode
 		}
 	}
 
-	public boolean contains(int value)
-	{
-		if (value == data)
-			return true;
-
-		if (value < data)
-		{
-			if (left != null)
-			{
-				if (left.getData() == value)
-					return true;
-				else
-					return left.contains(value);
-			}
-		}
-		else
-		{
-			if (right != null)
-			{
-				if (right.getData() == value)
-					return true;
-				else
-					return right.contains(value);
-			}
-			else
-				return false;
-		}
-		return false;
-	}
-
 	public TreeNode recursiveDelete(TreeNode localRoot, int value) //based on the remove algorithm on digital ocean by Anupam Chugh
 	{
 		if (localRoot == null) // check if local Root exists

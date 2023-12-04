@@ -5,6 +5,7 @@ package myTree;
 * This is a binary tree data type I programmed for class
 */
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -46,16 +47,6 @@ public class MyBinaryTree
 		order.offer(root);
 		return root.bfsContains(order, target);
 	}
-	
-	public boolean contains(int value)
-	{
-		if (root.getData() == value)
-		{
-			return true;
-		}
-
-		return root.contains(value);
-	}
 
 	public int findLargestValue()
 	{
@@ -66,7 +57,15 @@ public class MyBinaryTree
 	{
 		for (int i : arr)
 		{
-			add(i);
+			add(arr[i]);
+		}
+	}
+	
+	public void add(ArrayList<Integer> arr)
+	{
+		for(int i = 0; i < arr.size(); i++)
+		{
+			add(arr.get(i));
 		}
 	}
 
