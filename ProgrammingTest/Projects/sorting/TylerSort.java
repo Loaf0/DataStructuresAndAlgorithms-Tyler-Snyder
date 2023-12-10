@@ -251,20 +251,70 @@ public class TylerSort
 	public boolean binaryTreeSearch(ArrayList<Integer> arr, int target) 
 	{
 		MyBinaryTree bt = new MyBinaryTree();
-		
 		bt.add(arr);
-				
-		bt.dftPrint();
+		
 		return bt.dftContains(target);
 	}
 	
-	public int binarySearch(ArrayList<Integer> arr, int target) 
+	public boolean startBinarySearch(ArrayList<Integer> originalArr, int first, int last, int target, boolean useRecursion) 
 	{
+		ArrayList<Integer> arr = originalArr;
+		mergeSort(arr);
 		
-		return -1;
+		if(!useRecursion)
+			return binarySearch(arr, first, last, target);
+		else
+			return recursiveBinarySearch(arr, first, last, target);
 	}
 	
+	public boolean binarySearch(ArrayList<Integer> arr, int first, int last, int target) 
+	{
+		int middle = 0;
+		
+		while(first <= last) 
+		{
+			middle = (first + last) / 2;
+			if(arr.get(middle) == target) 
+			{
+				return true;
+			}
+			if(arr.get(middle) < target)
+			{
+				first = middle;
+			}
+			else 
+			{
+				last = middle;
+			}
+		}	
+		return false;
+	}
 	
+	public boolean recursiveBinarySearch(ArrayList<Integer> arr, int first, int last, int target) 
+	{
+		int middle = 0;
+		
+		if(first <= last) 
+		{
+			middle = (first + last) / 2;
+				
+			if(arr.get(middle) == target) 
+			{
+				return true;
+			}
+			if(arr.get(middle) < target)
+			{
+				first = middle;
+			}
+			else 
+			{
+				last = middle;
+			}
+		}
+					
+		return recursiveBinarySearch(arr, first, last, target);
+		
+	}
 	
 	public void print(ArrayList<Integer> arr)
 	{

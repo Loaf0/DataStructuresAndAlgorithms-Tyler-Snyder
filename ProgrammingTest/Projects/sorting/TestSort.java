@@ -24,7 +24,7 @@ public class TestSort
 		
 		//long mergeTime = System.currentTimeMillis();
 		
-		System.out.println(ts.binaryTreeSearch(arr, 9));
+		System.out.println(ts.startBinarySearch(arr, 0, arr.size(), 10, false));
 		//ts.insertionSort(arr)
 		//mergeTime = System.currentTimeMillis() - mergeTime;
 		ts.print(arr);
